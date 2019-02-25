@@ -16,3 +16,8 @@ restart:
 
 ps:
 	docker-compose ps
+
+backup:
+	sudo docker exec -t gitlab gitlab-rake gitlab:backup:create
+	# Automate this with sudo contab -e
+	# 0 2 * * * docker exec -t gitlab gitlab-rake gitlab:backup:create CRON=1
