@@ -21,3 +21,4 @@ services:
      - '/srv/gitlab/logs:/var/log/gitlab'
      - '/srv/gitlab/data:/var/opt/gitlab'
      - "./etc/letsencrypt:/etc/letsencrypt"
+     - "/srv/gitlab/backups:/var/opt/gitlab/backups"
