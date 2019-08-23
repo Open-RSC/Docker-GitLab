@@ -77,4 +77,4 @@ NC=`tput sgr0` # No Color
             }' | sudo tee /etc/docker/daemon.json
         sudo chown root:root /etc/docker/daemon.json
         sudo service docker restart
-        sudo docker network create nginxproxy_default
+        sudo docker network create nginx-proxy
