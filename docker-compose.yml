@@ -1,17 +1,17 @@
 version: '3'
 services:
 
-  web:
+  gitlab:
     container_name: gitlab
     image: 'gitlab/gitlab-ce:latest'
     restart: always
-    hostname: 'gitlab.DOMAIN.com'
+    hostname: ${HOSTNAME}
     environment:
-      VIRTUAL_HOST: gitlab.DOMAIN.com
-      LETSENCRYPT_HOST: gitlab.DOMAIN.com
-      LETSENCRYPT_EMAIL: EMAIL@EMAIL.COM
+      VIRTUAL_HOST: ${HOSTNAME}
+      LETSENCRYPT_HOST: ${HOSTNAME}
+      LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL}
       GITLAB_OMNIBUS_CONFIG: |
-        external_url 'https://gitlab.DOMAIN.com'
+        external_url ${HOSTNAME}
         letsencrypt['enable'] = false # Handled by nginx-proxy already
         nginx['listen_port'] = 80
         nginx['listen_https'] = false # Handled by nginx-proxy already
