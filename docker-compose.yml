@@ -12,6 +12,7 @@ services:
       LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL}
       GITLAB_OMNIBUS_CONFIG: |
         external_url 'https://${HOSTNAME}'
+        gitlab_rails['gitlab_shell_ssh_port'] = 2222
         letsencrypt['enable'] = false # Handled by nginx-proxy already
         nginx['listen_port'] = 80
         nginx['listen_https'] = false # Handled by nginx-proxy already
