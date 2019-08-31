@@ -26,6 +26,16 @@ services:
       - '/srv/gitlab/data:/var/opt/gitlab'
       - '/srv/gitlab/backups:/var/opt/gitlab/backups'
 
+  teamcity:
+    container_name: teamcity
+    image: jetbrains/teamcity-server:latest
+    restart: always
+    ports:
+      - '8111:8111'
+    volumes:
+      - './datadir:/data/teamcity_server/datadir'
+      - '/var/log/teamcity:/opt/teamcity/logs'
+
 networks:
   default:
     external:
