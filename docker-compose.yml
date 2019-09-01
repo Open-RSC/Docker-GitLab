@@ -5,10 +5,10 @@ services:
     container_name: gitlab
     image: 'gitlab/gitlab-ce:latest'
     restart: always
-    hostname: ${HOSTNAME}
+    hostname: ${GITLAB_HOSTNAME}
     environment:
-      VIRTUAL_HOST: ${HOSTNAME}
-      LETSENCRYPT_HOST: ${HOSTNAME}
+      VIRTUAL_HOST: ${GITLAB_HOSTNAME}
+      LETSENCRYPT_HOST: ${GITLAB_HOSTNAME}
       LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL}
       GITLAB_OMNIBUS_CONFIG: |
         external_url 'https://${HOSTNAME}'
@@ -30,6 +30,11 @@ services:
     container_name: teamcity
     image: jetbrains/teamcity-server:latest
     restart: always
+    hostname: ${TEAMCITY_HOSTNAME}
+    environment:
+      VIRTUAL_HOST: ${TEAMCITY_HOSTNAME}
+      LETSENCRYPT_HOST: ${TEAMCITY_HOSTNAME}
+      LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL}
     ports:
       - '8111:8111'
     volumes:
