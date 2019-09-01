@@ -7,8 +7,8 @@ services:
     restart: always
     hostname: ${GITLAB_HOSTNAME}
     environment:
-      VIRTUAL_HOST: ${GITLAB_HOSTNAME}
-      LETSENCRYPT_HOST: ${GITLAB_HOSTNAME}
+      VIRTUAL_HOST: ${GITLAB_HOSTNAME},${GITLAB_HOSTNAME2}
+      LETSENCRYPT_HOST: ${GITLAB_HOSTNAME},${GITLAB_HOSTNAME2}
       LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL}
       GITLAB_OMNIBUS_CONFIG: |
         external_url 'https://${HOSTNAME}'
