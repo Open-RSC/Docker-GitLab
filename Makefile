@@ -28,3 +28,9 @@ backup:
 restore:
 	sudo docker exec -it gitlab gitlab-rake gitlab:backup:restore
 	# Tar must be located in /srv/gitlab/backups to be found
+
+reconfigure:
+	sudo docker exec -it gitlab gitlab-ctl reconfigure
+
+full-refresh:
+	sudo docker exec -it gitlab gitlab-ctl reconfigure && sudo sudo docker exec -it gitlab gitlab-rake gitlab:check SANITIZE=true && sudo docker exec -it gitlab gitlab-ctl restart
