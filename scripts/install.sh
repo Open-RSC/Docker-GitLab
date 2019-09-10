@@ -64,12 +64,13 @@ sudo usermod -a -G docker ubuntu
 sudo setfacl -m user:"$USER":rw /var/run/docker.sock
 # 4.5  - Ensures Content trust for Docker is Enabled
 echo "DOCKER_CONTENT_TRUST=1" | sudo tee -a /etc/environment
+echo "DOCKER_OPTS="--iptables=false" | sudo tee -a /etc/default/docker"
 # Config to implement changes for 2.1 - 2.15
 sudo mv /tmp/daemon.json /etc/docker/daemon.json
 echo ""
 echo "Setting Docker to have the correct storage driver and restarting the service."
 echo '{
-            "storage-driver": "devicemapper"
+            "storage-driver": "overlay2"
             }' | sudo tee /etc/docker/daemon.json
 sudo chown root:root /etc/docker/daemon.json
 sudo service docker restart
