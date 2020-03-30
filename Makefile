@@ -1,5 +1,7 @@
-install:
-	`pwd`/scripts/install.sh
+update:
+	@docker-compose down -v
+	sudo docker image rm gitlab/gitlab-ce
+	docker-compose up -d
 
 ufw-import:
 	cd scripts && `pwd`/ufw-import.sh
@@ -26,7 +28,10 @@ backup:
 	# 0 2 * * * docker exec -t gitlab gitlab-rake gitlab:backup:create CRON=1
 
 restore:
-	sudo docker exec -it gitlab gitlab-rake gitlab:backup:restore
+	sudo docker exec -it gitlab gitlab-ctl stop unicorn
+	sudo docker exec -it gitlab gitlab-ctl stop puma
+	sudo docker exec -it gitlab gitlab-ctl stop sidekiq
+	sudo docker exec -it gitlab gitlab-backup restore BACKUP=${name}
 	# Tar must be located in /srv/gitlab/backups to be found
 
 reconfigure:

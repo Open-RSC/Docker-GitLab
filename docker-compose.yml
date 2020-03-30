@@ -6,27 +6,12 @@ services:
     image: 'gitlab/gitlab-ce:latest'
     restart: always
     hostname: ${GITLAB_HOSTNAME}
-    environment:
-      VIRTUAL_HOST: ${GITLAB_HOSTNAME},${GITLAB_HOSTNAME2}
-      LETSENCRYPT_HOST: ${GITLAB_HOSTNAME},${GITLAB_HOSTNAME2}
-      LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL}
-      GITLAB_OMNIBUS_CONFIG: |
-        external_url 'https://${GITLAB_HOSTNAME}'
-        nginx['listen_port'] = 80
-        letsencrypt['enable'] = false #using nginx letsencrypt proxy instead
-        nginx['listen_https'] = false #using nginx letsencrypt proxy instead
-    expose:
-      - 80
-      - 443
     ports:
+      - '80:80'
+      - '443:443'
       - '22:22'
     volumes:
-      - '/srv/gitlab/config:/etc/gitlab'
-      - '/srv/gitlab/logs:/var/log/gitlab'
-      - '/srv/gitlab/data:/var/opt/gitlab'
-      - '/srv/gitlab/backups:/var/opt/gitlab/backups'
-
-networks:
-  default:
-    external:
-      name: nginx-proxy
+      - './gitlab/config:/etc/gitlab'
+      - './gitlab/logs:/var/log/gitlab'
+      - './gitlab/data:/var/opt/gitlab'
+      - './gitlab/backups:/var/opt/gitlab/backups'
